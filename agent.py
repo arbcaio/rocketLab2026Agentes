@@ -333,5 +333,8 @@ class EcommerceAgent:
 # =============================================================================
 
 if __name__ == "__main__":
-    agent = EcommerceAgent()
+    agent = EcommerceAgent(
+        db_path=os.getenv("DB_PATH", "files/banco.db"),
+        model_name=os.getenv("GEMINI_MODEL", "gemini-2.5-flash"),
+    )
     agent.chat_interativo()
