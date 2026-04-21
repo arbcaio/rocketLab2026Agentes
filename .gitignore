@@ -1,0 +1,33 @@
+# Variáveis de ambiente (contém chaves de API)
+.env
+
+# Banco de dados e arquivos de dados (arquivos grandes, não versionar)
+*.db
+files/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
