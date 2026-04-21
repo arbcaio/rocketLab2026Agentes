@@ -1,35 +1,35 @@
-# 🛒 Agente de Análise de E-Commerce
+# Agente de Análise de E-Commerce
 
 Agente conversacional que permite a **usuários não técnicos** realizarem consultas e análises sobre dados de um sistema de e-commerce usando **linguagem natural em português**.
 
 O agente traduz automaticamente perguntas para SQL (Text-to-SQL), executa as queries no banco de dados SQLite e retorna análises interpretadas — tudo sem que o usuário precise conhecer SQL ou estrutura de dados.
 
 **Stack:**
-- 🤖 Modelo: Google Gemini 2.5 Flash (`google-generativeai`)
-- 🐍 Linguagem: Python 3.10+
-- 🗄️ Banco: SQLite3 (embutido no Python, sem instalação extra)
-- 🌐 API: FastAPI + Uvicorn
-- 📓 Demo: Jupyter Notebook
+- Modelo: Google Gemini 2.5 Flash (`google-generativeai`)
+- Linguagem: Python 3.10+
+- Banco: SQLite3 (embutido no Python, sem instalação extra)
+- API: FastAPI + Uvicorn
+- Demo: Jupyter Notebook
 
 ---
 
-## 📁 Estrutura do Projeto
+## Estrutura do Projeto
 
 ```
 .
-├── agent.py           # 🤖 Núcleo do agente (Text-to-SQL + Gemini)
-├── api.py             # 🌐 API REST com FastAPI
-├── demo.ipynb         # 📓 Notebook Jupyter com exemplos
-├── requirements.txt   # 📦 Dependências Python
-├── .env.example       # ⚙️  Template de variáveis de ambiente
+├── agent.py           # Núcleo do agente (Text-to-SQL + Gemini)
+├── api.py             # API REST com FastAPI
+├── demo.ipynb         # Notebook Jupyter com exemplos
+├── requirements.txt   # Dependências Python
+├── .env.example       # Template de variáveis de ambiente
 ├── .gitignore
 └── files/
-    └── banco.db       # 🗄️  Banco SQLite (você precisa adicionar este arquivo)
+    └── banco.db       # Banco SQLite (você precisa adicionar este arquivo)
 ```
 
 ---
 
-## 🚀 Passo a Passo para Executar
+## Passo a Passo para Executar
 
 ### Pré-requisitos
 
@@ -42,8 +42,8 @@ O agente traduz automaticamente perguntas para SQL (Text-to-SQL), executa as que
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/seu-repositorio.git
-cd seu-repositorio
+git clone https://github.com/arbcaio/rocketLab2026Agentes.git
+cd rocketLab2026Agentes
 ```
 
 ---
@@ -90,14 +90,14 @@ DB_PATH=files/banco.db
 GEMINI_MODEL=gemini-2.5-flash
 ```
 
-> 💡 **Como obter a chave gratuita:**  
+> **Como obter a chave gratuita:**
 > Acesse [aistudio.google.com/apikey](https://aistudio.google.com/apikey), faça login com sua conta Google e clique em **"Create API key"**.
 
 ---
 
 ### 5. Adicione o banco de dados
 
-> ⚠️ O arquivo `banco.db` **não está versionado** no repositório por ser grande (~118 MB).  
+> O arquivo `banco.db` **não está versionado** no repositório por ser grande (~118 MB).
 > Você precisa obtê-lo separadamente e colocá-lo na pasta correta.
 
 **Como obter o banco.db:**
@@ -109,19 +109,19 @@ GEMINI_MODEL=gemini-2.5-flash
 ```
 rocketLab2026Agentes/
 └── files/
-    └── banco.db   ← coloque aqui
+    └── banco.db   <- coloque aqui
 ```
 
 **Caminho esperado pelo agente:** `files/banco.db`
 
-> 💡 Você pode usar um caminho diferente editando `DB_PATH` no arquivo `.env`:</p>
+> Você pode usar um caminho diferente editando `DB_PATH` no arquivo `.env`:
 > ```
 > DB_PATH=caminho/para/seu/banco.db
 > ```
 
 ---
 
-## 🎯 Formas de Usar
+## Formas de Usar
 
 ### Opção A — Jupyter Notebook (recomendada para demonstração)
 
@@ -130,11 +130,11 @@ jupyter notebook demo.ipynb
 ```
 
 O notebook contém exemplos prontos para todas as categorias de análise:
-- 📈 Vendas e Receita
-- 🚚 Entrega e Logística
-- ⭐ Satisfação e Avaliações
-- 👥 Consumidores
-- 🏪 Vendedores e Produtos
+- Vendas e Receita
+- Entrega e Logística
+- Satisfação e Avaliações
+- Consumidores
+- Vendedores e Produtos
 
 ---
 
@@ -147,16 +147,16 @@ python agent.py
 Abre um chat interativo no terminal:
 
 ```
-══════════════════════════════════════════════════════════════
-  🛒  Agente de Análise de E-Commerce  |  Gemini 2.5 Flash
-══════════════════════════════════════════════════════════════
+==============================================================
+  Agente de Análise de E-Commerce  |  Gemini 2.5 Flash
+==============================================================
   Digite sua pergunta sobre os dados do e-commerce.
   Comandos: 'novo' = nova conversa  |  'sair' = encerrar
-══════════════════════════════════════════════════════════════
+==============================================================
 
-👤 Você: Quais são os 10 produtos mais vendidos?
+Você: Quais são os 10 produtos mais vendidos?
 
-🤖 Agente:
+Agente:
 Os 10 produtos mais vendidos são: ...
 ```
 
@@ -187,7 +187,7 @@ import requests
 
 resposta = requests.post(
     "http://localhost:8000/query",
-    json={"pergunta": "Qual é a receita total por categoria de produto?"}
+    json={"pergunta": "Qual e a receita total por categoria de produto?"}
 )
 print(resposta.json()["resposta"])
 ```
@@ -223,7 +223,7 @@ agent.nova_conversa()
 
 ---
 
-## 💡 Exemplos de Perguntas
+## Exemplos de Perguntas
 
 ### Análise de Vendas e Receita
 - *"Quais são os 10 produtos mais vendidos?"*
@@ -250,7 +250,7 @@ agent.nova_conversa()
 
 ---
 
-## 🗄️ Banco de Dados
+## Banco de Dados
 
 O banco `banco.db` é um SQLite3 com 7 tabelas:
 
@@ -266,33 +266,36 @@ O banco `banco.db` é um SQLite3 com 7 tabelas:
 
 ---
 
-## 🔒 Segurança (Guardrails)
+## Segurança (Guardrails)
 
 O agente possui proteções embutidas que impedem operações destrutivas:
 
-- ✅ Apenas queries `SELECT` e `WITH` (CTEs) são permitidas
-- ❌ Comandos `INSERT`, `UPDATE`, `DELETE`, `DROP`, `ALTER` são bloqueados automaticamente
-- ❌ Comandos `ATTACH`, `DETACH` e `PRAGMA` também são bloqueados
-- 📊 Resultados são limitados a 50 linhas no contexto do modelo (proteção contra sobrecarga)
+- Apenas queries `SELECT` e `WITH` (CTEs) são permitidas
+- Comandos `INSERT`, `UPDATE`, `DELETE`, `DROP`, `ALTER` são bloqueados automaticamente
+- Comandos `ATTACH`, `DETACH` e `PRAGMA` também são bloqueados
+- Resultados são limitados a 50 linhas no contexto do modelo
 
 ---
 
-## 🛠️ Solução de Problemas
+## Solução de Problemas
 
-**`GEMINI_API_KEY não encontrada`**
-→ Verifique se o arquivo `.env` existe e contém a chave correta.
+**GEMINI_API_KEY não encontrada**
+> Verifique se o arquivo `.env` existe e contém a chave correta.
 
-**`Banco de dados não encontrado`**
-→ Confirme que `banco.db` está em `files/banco.db` (ou ajuste `DB_PATH` no `.env`).
+**Banco de dados não encontrado**
+> Confirme que `banco.db` está em `files/banco.db` (ou ajuste `DB_PATH` no `.env`).
 
-**`ModuleNotFoundError`**
-→ Execute `pip install -r requirements.txt` com o ambiente virtual ativado.
+**ModuleNotFoundError**
+> Execute `pip install -r requirements.txt` com o ambiente virtual ativado.
+
+**Erro de quota (429)**
+> O free tier do Gemini 2.5 Flash tem limite de 20 requisições/dia. Aguarde até meia-noite ou adicione billing em [aistudio.google.com](https://aistudio.google.com). Alternativa: use `GEMINI_MODEL=gemini-2.0-flash` no `.env` (1.500 req/dia grátis).
 
 **Erro de modelo não encontrado**
-→ Verifique os modelos disponíveis em [ai.google.dev/gemini-api/docs/models](https://ai.google.dev/gemini-api/docs/models) e atualize `GEMINI_MODEL` no `.env`.
+> Verifique os modelos disponíveis em [ai.google.dev/gemini-api/docs/models](https://ai.google.dev/gemini-api/docs/models) e atualize `GEMINI_MODEL` no `.env`.
 
 ---
 
-## 📄 Licença
+## Licença
 
 MIT License — veja [LICENSE](LICENSE) para detalhes.
