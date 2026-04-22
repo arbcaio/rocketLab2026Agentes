@@ -181,6 +181,10 @@ class EcommerceAgent:
 
         self.chat = self.model.start_chat(enable_automatic_function_calling=True)
 
+        # Armazena o ultimo DataFrame retornado por executar_sql
+        # Usado pela interface Streamlit para gerar graficos automaticamente
+        self._ultimo_df: Optional[pd.DataFrame] = None
+
         print(f"Agente de E-Commerce inicializado.")
         print(f"  Modelo : {model_name}")
         print(f"  Banco  : {db_path}")
@@ -223,6 +227,9 @@ class EcommerceAgent:
 
             if df.empty:
                 return "Nenhum resultado encontrado para esta consulta."
+
+            # Salva o DataFrame para uso externo (ex: interface Streamlit)
+            self._ultimo_df = df
 
             n_total = len(df)
             n_exibir = min(n_total, 50)
@@ -267,9 +274,26 @@ class EcommerceAgent:
         except Exception as e:
             return f"Erro ao processar a pergunta: {str(e)}"
 
+    def perguntar_com_dados(self, pergunta: str) -> tuple:
+        """
+        Envia uma pergunta e retorna a resposta junto com o DataFrame do ultimo SQL.
+
+        Util para interfaces graficas que querem plotar os dados automaticamente.
+
+        Args:
+            pergunta: Pergunta em portugues sobre os dados do e-commerce.
+
+        Returns:
+            Tupla (resposta: str, df: pd.DataFrame | None)
+        """
+        self._ultimo_df = None
+        resposta = self.perguntar(pergunta)
+        return resposta, self._ultimo_df
+
     def nova_conversa(self):
         """Reinicia o historico de conversa."""
         self.chat = self.model.start_chat(enable_automatic_function_calling=True)
+        self._ultimo_df = None
         print("Nova conversa iniciada. Historico limpo.")
 
     def chat_interativo(self):

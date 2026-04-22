@@ -8,6 +8,7 @@ O agente traduz automaticamente perguntas para SQL (Text-to-SQL), executa as que
 - Modelo: Google Gemini 2.5 Flash (`google-generativeai`)
 - Linguagem: Python 3.10+
 - Banco: SQLite3 (embutido no Python, sem instalação extra)
+- Interface Visual: Streamlit + Plotly
 - API: FastAPI + Uvicorn
 - Demo: Jupyter Notebook
 
@@ -123,7 +124,21 @@ rocketLab2026Agentes/
 
 ## Formas de Usar
 
-### Opção A — Jupyter Notebook (recomendada para demonstração)
+### Opção A — Interface Visual com Streamlit (recomendada)
+
+```bash
+streamlit run app.py
+```
+
+Abre automaticamente em `http://localhost:8501` com:
+- Chat com histórico de conversa
+- Graficos interativos gerados automaticamente (barras, linhas, tabelas)
+- Sidebar com perguntas de exemplo clicáveis por categoria
+- Botão de nova conversa
+
+---
+
+### Opção B — Jupyter Notebook (demonstração passo a passo)
 
 ```bash
 jupyter notebook demo.ipynb
@@ -138,7 +153,7 @@ O notebook contém exemplos prontos para todas as categorias de análise:
 
 ---
 
-### Opção B — Script Python (terminal interativo)
+### Opção C — Script Python (terminal interativo)
 
 ```bash
 python agent.py
@@ -162,7 +177,7 @@ Os 10 produtos mais vendidos são: ...
 
 ---
 
-### Opção C — API FastAPI
+### Opção D — API FastAPI
 
 Suba o servidor:
 
@@ -204,7 +219,7 @@ print(resposta.json()["resposta"])
 
 ---
 
-### Opção D — Uso como Biblioteca Python
+### Opção E — Uso como Biblioteca Python
 
 ```python
 from agent import EcommerceAgent
