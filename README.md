@@ -50,7 +50,7 @@ cd rocketLab2026Agentes
 
 ---
 
-### 3. Instale as dependencias
+### 2. Instale as dependencias
 
 ```bash
 pip install -r requirements.txt
@@ -58,7 +58,7 @@ pip install -r requirements.txt
 
 ---
 
-### 4. Configure as variaveis de ambiente
+### 3. Configure as variaveis de ambiente
 
 ```bash
 # Windows
@@ -85,7 +85,7 @@ PORT=8000
 
 ---
 
-### 5. Adicione o banco de dados
+### 4. Adicione o banco de dados
 
 > O arquivo `banco.db` nao esta versionado no repositorio (arquivo grande, ~63 MB).
 > Voce precisa obtê-lo separadamente.
