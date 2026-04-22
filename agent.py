@@ -14,6 +14,7 @@ Uso rapido:
     print(resposta)
 """
 
+import hashlib
 import sqlite3
 import re
 import os
@@ -25,6 +26,48 @@ import google.generativeai as genai
 from dotenv import load_dotenv
 
 load_dotenv()
+
+# =============================================================================
+# ANONIMIZACAO DE DADOS PESSOAIS
+# =============================================================================
+
+# Colunas que contêm dados pessoais e seus prefixos de pseudônimo
+_COLUNAS_PII = {
+    "nome_consumidor": "Consumidor",
+    "nome_vendedor":   "Vendedor",
+}
+
+
+def anonimizar_df(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Substitui colunas de dados pessoais por pseudônimos determinísticos.
+
+    A anonimização é feita via hash MD5 truncado, garantindo que:
+    - O mesmo nome original sempre gera o mesmo pseudônimo (consistência)
+    - O pseudônimo não pode ser revertido ao nome original (irreversibilidade)
+    - Análises de agrupamento e contagem continuam funcionando normalmente
+
+    Exemplo:
+        "Dr. Davi Pinto"   -> "Consumidor-A3F2B1"
+        "Amanda Sa"        -> "Vendedor-C91E04"
+
+    Args:
+        df: DataFrame retornado pela query SQL.
+
+    Returns:
+        DataFrame com colunas PII substituídas por pseudônimos.
+    """
+    df = df.copy()
+    for coluna, prefixo in _COLUNAS_PII.items():
+        if coluna in df.columns:
+            df[coluna] = df[coluna].apply(
+                lambda v: (
+                    f"{prefixo}-{hashlib.md5(str(v).encode()).hexdigest()[:6].upper()}"
+                    if pd.notna(v) and str(v).strip() != ""
+                    else v
+                )
+            )
+    return df
 
 # =============================================================================
 # SCHEMA DO BANCO DE DADOS (contexto para o modelo)
@@ -120,6 +163,12 @@ Voce tem acesso a um banco de dados SQLite e deve usar a ferramenta `executar_sq
 - APENAS queries SELECT (ou WITH para CTEs) sao permitidas
 - Nunca execute INSERT, UPDATE, DELETE, DROP, ALTER ou qualquer comando de modificacao
 - Nunca acesse tabelas que nao estejam listadas no schema acima
+
+## Anonimizacao:
+- Os campos nome_consumidor e nome_vendedor sao automaticamente anonimizados antes de chegarem a voce
+- Os pseudonimos seguem o formato "Consumidor-XXXXXX" e "Vendedor-XXXXXX"
+- Trate esses pseudonimos como identificadores — nao tente inferir nem revelar nomes reais
+- Ao citar individuos nas respostas, use sempre o pseudonimo anonimizado
 """
 
 
@@ -227,6 +276,9 @@ class EcommerceAgent:
 
             if df.empty:
                 return "Nenhum resultado encontrado para esta consulta."
+
+            # Anonimiza colunas de dados pessoais antes de qualquer uso
+            df = anonimizar_df(df)
 
             # Salva o DataFrame para uso externo (ex: interface Streamlit)
             self._ultimo_df = df
