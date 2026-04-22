@@ -50,20 +50,6 @@ cd rocketLab2026Agentes
 
 ---
 
-### 2. Crie e ative um ambiente virtual (recomendado)
-
-```bash
-# Windows
-python -m venv venv
-venv\Scripts\activate
-
-# macOS / Linux
-python3 -m venv venv
-source venv/bin/activate
-```
-
----
-
 ### 3. Instale as dependencias
 
 ```bash
@@ -267,22 +253,6 @@ SQLite3 com 7 tabelas (~63 MB):
 - Os campos `nome_consumidor` e `nome_vendedor` sao substituidos por pseudonimos deterministicos antes de chegarem ao modelo
 - Formato: `Consumidor-XXXXXX` / `Vendedor-XXXXXX` (hash MD5 truncado)
 - A anonimizacao e irreversivel mas consistente: o mesmo nome sempre gera o mesmo pseudonimo, preservando analises de agrupamento
-
----
-
-## Solucao de Problemas
-
-**GEMINI_API_KEY nao encontrada**
-> Verifique se o arquivo `.env` existe e contem a chave correta.
-
-**Banco de dados nao encontrado**
-> Confirme que `banco.db` esta em `files/banco.db` ou ajuste `DB_PATH` no `.env`.
-
-**ModuleNotFoundError**
-> Execute `pip install -r requirements.txt` com o ambiente virtual ativado.
-
-**Erro de quota (429)**
-> O free tier do Gemini 2.5 Flash tem limite de 20 req/dia. Aguarde ate meia-noite ou use `GEMINI_MODEL=gemini-2.0-flash` no `.env` (1.500 req/dia gratis).
 
 ---
 
