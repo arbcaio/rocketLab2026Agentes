@@ -187,7 +187,7 @@ def reset_conversa():
     try:
         agent = get_agent()
         agent.nova_conversa()
-        return {"mensagem": "✅ Histórico de conversa reiniciado com sucesso."}
+        return {"mensagem": "Historico de conversa reiniciado com sucesso."}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
