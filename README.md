@@ -14,6 +14,10 @@ O agente traduz automaticamente perguntas para SQL (Text-to-SQL), executa as que
 
 ---
 
+![interface](images/Screenshot_1.png)
+![grafico](images/Screenshot_2.png)
+
+---
 ## Estrutura do Projeto
 
 ```
